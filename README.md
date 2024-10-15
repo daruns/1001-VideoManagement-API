@@ -37,6 +37,7 @@ A simple Video Management API for uploading, retrieving, listing, and searching 
 9. i used a lot of async/await to make the code look clean and easy to read
 10. i used a lot of try/catch to handle errors
 11. i used dotenv to handle the environment variables
+12. i have implemented pagination and search and input validation and error handling
 
 ## Installation
 
