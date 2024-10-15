@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Video } from '../interfaces/video.interface';
 import { CreateVideoDto } from '../dtos/video/createVideoDto';
+import { SearchVideosDto } from '../dtos/video/searchVideosDto';
+import { paginate } from '../utils/paginationUtils';
 
 export class VideoService {
   private videos: Video[] = [];
@@ -15,6 +17,18 @@ export class VideoService {
     };
     this.videos.push(newVideo);
     return newVideo;
+  }
+  searchVideos(searchParams: SearchVideosDto): Video[] {
+    let results = this.videos;
+    
+    if (searchParams.query) {
+      const lowercaseQuery = searchParams.query.toLowerCase();
+      results = results.filter(video => 
+        video.title.toLowerCase().includes(lowercaseQuery) ||
+        (video.description && video.description.toLowerCase().includes(lowercaseQuery))
+      );
+    }
+    return paginate(results, searchParams.page, searchParams.limit)
   }
 
   getVideoById(id: string): Video | undefined {

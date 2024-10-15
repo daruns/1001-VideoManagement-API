@@ -3,6 +3,9 @@ import { VideoService } from '../services/videoService';
 import { CreateVideoDto } from '../dtos/video/createVideoDto';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
+import { SearchVideosDto } from '../dtos/video/searchVideosDto';
+import { Video } from '../interfaces/video.interface';
+import { PaginationDto } from '../dtos/paginationDto';
 
 export class VideoController {
   constructor(private videoService: VideoService) {}
@@ -29,6 +32,29 @@ export class VideoController {
     }
   }
 
+  async searchVideos(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const searchParams = plainToClass(SearchVideosDto, req.query);
+      const errors = await validate(searchParams);
+
+      if (errors.length > 0) {
+        res.status(400).json({ errors: errors.map(error => "error happened") });
+        return;
+      }
+
+      const result:Video[] = this.videoService.searchVideos(searchParams);
+      res.json({
+        videos: result,
+        total: result.length,
+        page: searchParams.page,
+        limit: searchParams.limit
+      });
+    } catch (error) {
+      console.log("video not founddojklndekjfnrkj")
+      next(error);
+    }
+  }
+
   async getVideo(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const video = this.videoService.getVideoById(req.params.id);
@@ -44,9 +70,16 @@ export class VideoController {
 
   async listVideos(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { title, uploadDate } = req.query;
-      const videos = this.videoService.getAllVideos(title as string, uploadDate as string);
-      res.json(videos);
+      const paginationParams = plainToClass(PaginationDto, req.body);
+      const errors = await validate(paginationParams);
+
+      if (errors.length > 0) {
+        res.status(400).json({ errors: errors.map((error:any) => Object.values(error.constraints)) });
+        return;
+      }
+
+      const result = this.videoService.getAllVideos(paginationParams);
+      res.json(result);
     } catch (error) {
       next(error);
     }

@@ -14,5 +14,6 @@ router.post('/videos', upload.single('video'), videoController.createVideo.bind(
 router.get('/videos/:id', videoController.getVideo.bind(videoController));
 router.get('/videos', videoController.listVideos.bind(videoController));
 router.delete('/videos/:id', videoController.deleteVideo.bind(videoController));
+router.get('/videos/search', (req, res, next) => videoController.searchVideos(req, res, next));
 
 export default router;
