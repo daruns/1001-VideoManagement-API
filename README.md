@@ -53,15 +53,19 @@ Copy
 PORT=8040
 Copy
 ## Running the Application
-
+Copy
 Development:
 npm run dev
+
 Copy
 Docker:
 docker-compose up
+
+Copy
 Production:
 npm run build
 npm start
+
 Copy
 Server runs at `http://localhost:8040`.
 
