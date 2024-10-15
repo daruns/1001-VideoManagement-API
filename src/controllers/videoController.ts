@@ -38,19 +38,13 @@ export class VideoController {
       const errors = await validate(searchParams);
 
       if (errors.length > 0) {
-        res.status(400).json({ errors: errors.map(error => "error happened") });
+        res.status(400).json({ errors: errors.map((error:any) => Object.values(error.constraints)) });
         return;
       }
 
-      const result:Video[] = this.videoService.searchVideos(searchParams);
-      res.json({
-        videos: result,
-        total: result.length,
-        page: searchParams.page,
-        limit: searchParams.limit
-      });
+      const result = this.videoService.searchVideos(searchParams);
+      res.json(result);
     } catch (error) {
-      console.log("video not founddojklndekjfnrkj")
       next(error);
     }
   }

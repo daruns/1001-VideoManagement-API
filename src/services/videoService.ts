@@ -3,6 +3,8 @@ import { Video } from '../interfaces/video.interface';
 import { CreateVideoDto } from '../dtos/video/createVideoDto';
 import { SearchVideosDto } from '../dtos/video/searchVideosDto';
 import { paginate } from '../utils/paginationUtils';
+import { PaginationDto } from '../dtos/paginationDto';
+import { PaginationInterface } from '../interfaces/pagination.interface';
 
 export class VideoService {
   private videos: Video[] = [];
@@ -18,7 +20,7 @@ export class VideoService {
     this.videos.push(newVideo);
     return newVideo;
   }
-  searchVideos(searchParams: SearchVideosDto): Video[] {
+  searchVideos(searchParams: SearchVideosDto): PaginationInterface {
     let results = this.videos;
     
     if (searchParams.query) {
@@ -28,27 +30,15 @@ export class VideoService {
         (video.description && video.description.toLowerCase().includes(lowercaseQuery))
       );
     }
-    return paginate(results, searchParams.page, searchParams.limit)
+    return paginate(results, searchParams);
   }
 
   getVideoById(id: string): Video | undefined {
     return this.videos.find(v => v.id === id);
   }
 
-  getAllVideos(title?: string, uploadDate?: string): Video[] {
-    let filteredVideos = this.videos;
-    if (title) {
-      filteredVideos = filteredVideos.filter(v => 
-        v.title.toLowerCase().includes(title.toLowerCase())
-      );
-    }
-    if (uploadDate) {
-      const date = new Date(uploadDate);
-      filteredVideos = filteredVideos.filter(v => 
-        v.uploadDate.toDateString() === date.toDateString()
-      );
-    }
-    return filteredVideos;
+  getAllVideos(paginationDto: PaginationDto): PaginationInterface {
+    return paginate(this.videos, paginationDto);
   }
 
   deleteVideo(id: string): boolean {
