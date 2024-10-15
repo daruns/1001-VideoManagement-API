@@ -1,204 +1,164 @@
-Video Management API
+# Video Management API
+
 A simple Video Management API for uploading, retrieving, listing, and searching videos.
 
-Features
-Upload video files
-Retrieve video details
-List all uploaded videos with pagination
-Delete videos
-Search videos by title or description with pagination
-Pagination for both endpoints list videos and search
-Technologies Used
-Node.js
-TypeScript
-Express.js
-Multer
-class-validator & class-transformer
-Jest
-Prerequisites
-Node.js (v14+)
-npm (v6+)
-Approaches
-Used a specific structure for organization and ease of understanding
-Used comments to explain the code and make it easy to understand
-Used Multer to process file uploads
-Used class-validator and class-transformer to validate request bodies
-Used Jest for unit testing
-Used Express to create the API
-Used TypeScript for writing the code
-Used async/await for clean and readable code
-Used try/catch for error handling
-Used dotenv for environment variables
-Implemented pagination, search, input validation, and error handling
-Installation
-Clone the repository:
+## Features
 
-Verify
-Edit
-Copy code
+- Upload video files
+- Retrieve video details
+- List all uploaded videos with pagination
+- Delete videos
+- Search videos by title or description with pagination
+- Pagination for both endpoints list videos and search
+
+## Technologies Used
+
+- Node.js
+- TypeScript
+- Express.js
+- Multer
+- class-validator & class-transformer
+- Jest
+
+## Prerequisites
+
+- Node.js (v14+)
+- npm (v6+)
+
+## approaches
+
+1. i used a specific structure because i find it very organised and can be understood easily which i have used it since 2021
+2. i used a lot of comments to explain the code and make it easy to understand
+3. i also used multer to process the file from request body
+4. i used class-validator and class-transformer to validate the request body
+5. i used chatgpt just to organise the readme file 
+6. i used jest to write unit tests for the api
+7. i used express to create the api
+8. i used typescript to write the code
+9. i used a lot of async/await to make the code look clean and easy to read
+10. i used a lot of try/catch to handle errors
+11. i used dotenv to handle the environment variables
+12. i have implemented pagination and search and input validation and error handling
+
+## Installation
+
+1. Clone the repository:
 git clone https://github.com/yourusername/video-management-api.git
 cd video-management-api
-Install dependencies:
-
-Verify
-Edit
-Copy code
+Copy
+2. Install dependencies:
 npm install
-Create a .env file:
-
-Verify
-Edit
-Copy code
+Copy
+3. Create a `.env` file:
 PORT=8040
-Running the Application
-Development
-
-Verify
-Edit
-Copy code
+Copy
+## Running the Application
+Copy
+Development:
 npm run dev
-Docker
 
-Verify
-Edit
-Copy code
+Copy
+Docker:
 docker-compose up
-Production
 
-Verify
-Edit
-Copy code
+Copy
+Production:
 npm run build
 npm start
-Server runs at http://localhost:8040.
 
-API Endpoints
-Upload a new video
-http
+Copy
+Server runs at `http://localhost:8040`.
 
-Verify
-Edit
-Copy code
-POST /api/videos
-Body: form-data
+## API Endpoints
 
-video: File (required)
-title: string (required)
-description: string (optional)
-Response: 201 Created
+### Upload a new video
+- **POST** `/api/videos`
+- **Body**: form-data
+  - `video`: File (required)
+  - `title`: string (required)
+  - `description`: string (optional)
+- **Response**: 201 Created
+  ```json
+  {
+    "id": "string",
+    "message": "Video uploaded successfully"
+  }
+  Get video details
+  
+  GET /api/videos/:id
+  Response: 200 OK
+  jsonCopy{
+    "id": "string",
+    "title": "string",
+    "description": "string",
+    "uploadDate": "string",
+    "fileSize": number
+  }
+  
+  
+  List all videos
+  
+  GET /api/videos
+  Query Parameters:
+  
+  page: number (optional, default: 1)
+  limit: number (optional, default: 10)
+  
+  
+  Response: 200 OK
+  jsonCopy{
+    "data": [
+      {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "uploadDate": "string",
+        "fileSize": number
+      }
+    ],
+    "page": number,
+    "limit": number,
+    "total": number
+  }
+  
+  
+  Delete a video
+  
+  DELETE /api/videos/:id
+  Response: 200 OK
+  jsonCopy{
+    "message": "Video deleted successfully"
+  }
+  
+  
+  Search videos
+  
+  GET /api/videos/search
+  Query Parameters:
+  
+  query: string (required)
+  page: number (optional, default: 1)
+  limit: number (optional, default: 10)
+  
+  
+  Response: 200 OK
+  jsonCopy{
+    "data": [
+      {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "uploadDate": "string",
+        "fileSize": number
+      }
+    ],
+    "page": number,
+    "limit": number,
+    "total": number
+  }
+  ```
 
-json
 
-Verify
-Edit
-Copy code
-{
-  "id": "string",
-  "message": "Video uploaded successfully"
-}
-Get video details
-http
-
-Verify
-Edit
-Copy code
-GET /api/videos/:id
-Response: 200 OK
-
-json
-
-Verify
-Edit
-Copy code
-{
-  "id": "string",
-  "title": "string",
-  "description": "string",
-  "uploadDate": "string",
-  "fileSize": number
-}
-List all videos
-http
-
-Verify
-Edit
-Copy code
-GET /api/videos
-Query Parameters:
-
-page: number (optional, default: 1)
-limit: number (optional, default: 10)
-Response: 200 OK
-
-json
-
-Verify
-Edit
-Copy code
-{
-  "data": [
-    {
-      "id": "string",
-      "title": "string",
-      "description": "string",
-      "uploadDate": "string",
-      "fileSize": number
-    }
-  ],
-  "page": number,
-  "limit": number,
-  "total": number
-}
-Delete a video
-http
-
-Verify
-Edit
-Copy code
-DELETE /api/videos/:id
-Response: 200 OK
-
-json
-
-Verify
-Edit
-Copy code
-{
-  "message": "Video deleted successfully"
-}
-Search videos
-http
-
-Verify
-Edit
-Copy code
-GET /api/videos/search
-Query Parameters:
-
-query: string (required)
-page: number (optional, default: 1)
-limit: number (optional, default: 10)
-Response: 200 OK
-
-json
-
-Verify
-Edit
-Copy code
-{
-  "data": [
-    {
-      "id": "string",
-      "title": "string",
-      "description": "string",
-      "uploadDate": "string",
-      "fileSize": number
-    }
-  ],
-  "page": number,
-  "limit": number,
-  "total": number
-}
 License
 MIT License
-
+Copy
