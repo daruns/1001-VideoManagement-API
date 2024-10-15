@@ -57,6 +57,8 @@ Copy
 Development:
 npm run dev
 Copy
+Docker:
+docker-compose up
 Production:
 npm run build
 npm start
