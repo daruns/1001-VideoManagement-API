@@ -2,9 +2,11 @@ import { Router } from 'express';
 import multer from 'multer';
 import { VideoController } from '../controllers/videoController';
 import { VideoService } from '../services/videoService';
+import { multerConfig } from '../config/multer'
 
 const router = Router();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer(multerConfig)
+console.log(multerConfig.dest)
 const videoService = new VideoService();
 const videoController = new VideoController(videoService);
 
