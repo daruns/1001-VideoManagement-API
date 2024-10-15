@@ -9,6 +9,7 @@ A simple Video Management API for uploading, retrieving, listing, and searching 
 - List all uploaded videos with pagination
 - Delete videos
 - Search videos by title or description with pagination
+- Pagination for both endpoints list videos and search
 
 ## Technologies Used
 
@@ -64,32 +65,111 @@ Server runs at `http://localhost:8040`.
 
 ## API Endpoints
 
-- `POST /api/videos`: Upload a new video
-- `GET /api/videos/:id`: Get video details
-- `GET /api/videos`: List all videos (paginated)
-- `DELETE /api/videos/:id`: Delete a video
-- `GET /api/videos/search`: Search videos (paginated)
+### Upload a new video
+- **POST** `/api/videos`
+- **Body**: form-data
+  - `video`: File (required)
+  - `title`: string (required)
+  - `description`: string (optional)
+- **Response**: 201 Created
+  ```json
+  {
+    "id": "string",
+    "message": "Video uploaded successfully"
+  }
+Get video details
 
-## Testing
-npm test
-Copy
-## Deployment
+GET /api/videos/:id
+Response: 200 OK
+jsonCopy{
+  "id": "string",
+  "title": "string",
+  "description": "string",
+  "uploadDate": "string",
+  "fileSize": number
+}
 
-1. Build:
-npm run build
-Copy
-2. Deploy `dist` directory to your hosting platform.
 
-3. Set environment variables on the hosting platform.
+List all videos
 
-## Contributing
+GET /api/videos
+Query Parameters:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+page: number (optional, default: 1)
+limit: number (optional, default: 10)
 
-## License
 
+Response: 200 OK
+jsonCopy{
+  "data": [
+    {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "uploadDate": "string",
+      "fileSize": number
+    }
+  ],
+  "page": number,
+  "limit": number,
+  "total": number
+}
+
+
+Delete a video
+
+DELETE /api/videos/:id
+Response: 200 OK
+jsonCopy{
+  "message": "Video deleted successfully"
+}
+
+
+Search videos
+
+GET /api/videos/search
+Query Parameters:
+
+query: string (required)
+page: number (optional, default: 1)
+limit: number (optional, default: 10)
+
+
+Response: 200 OK
+jsonCopy{
+  "data": [
+    {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "uploadDate": "string",
+      "fileSize": number
+    }
+  ],
+  "page": number,
+  "limit": number,
+  "total": number
+}
+
+
+Testing
+Copynpm test
+Deployment
+
+Build:
+Copynpm run build
+
+Deploy dist directory to your hosting platform.
+Set environment variables on the hosting platform.
+
+Contributing
+
+Fork the repository
+Create your feature branch (git checkout -b feature/AmazingFeature)
+Commit your changes (git commit -m 'Add some AmazingFeature')
+Push to the branch (git push origin feature/AmazingFeature)
+Open a Pull Request
+
+License
 MIT License
+Copy

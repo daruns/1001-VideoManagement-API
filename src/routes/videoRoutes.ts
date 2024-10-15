@@ -11,9 +11,9 @@ const videoService = new VideoService();
 const videoController = new VideoController(videoService);
 
 router.post('/videos', upload.single('video'), videoController.createVideo.bind(videoController));
+router.get('/videos/search', videoController.searchVideos.bind(videoController));
 router.get('/videos/:id', videoController.getVideo.bind(videoController));
 router.get('/videos', videoController.listVideos.bind(videoController));
 router.delete('/videos/:id', videoController.deleteVideo.bind(videoController));
-router.get('/videos/search', videoController.searchVideos.bind(videoController));
 
 export default router;
