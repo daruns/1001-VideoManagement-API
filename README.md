@@ -79,82 +79,82 @@ Server runs at `http://localhost:8040`.
     "id": "string",
     "message": "Video uploaded successfully"
   }
-Get video details
+  Get video details
+  
+  GET /api/videos/:id
+  Response: 200 OK
+  jsonCopy{
+    "id": "string",
+    "title": "string",
+    "description": "string",
+    "uploadDate": "string",
+    "fileSize": number
+  }
+  
+  
+  List all videos
+  
+  GET /api/videos
+  Query Parameters:
+  
+  page: number (optional, default: 1)
+  limit: number (optional, default: 10)
+  
+  
+  Response: 200 OK
+  jsonCopy{
+    "data": [
+      {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "uploadDate": "string",
+        "fileSize": number
+      }
+    ],
+    "page": number,
+    "limit": number,
+    "total": number
+  }
+  
+  
+  Delete a video
+  
+  DELETE /api/videos/:id
+  Response: 200 OK
+  jsonCopy{
+    "message": "Video deleted successfully"
+  }
+  
+  
+  Search videos
+  
+  GET /api/videos/search
+  Query Parameters:
+  
+  query: string (required)
+  page: number (optional, default: 1)
+  limit: number (optional, default: 10)
+  
+  
+  Response: 200 OK
+  jsonCopy{
+    "data": [
+      {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "uploadDate": "string",
+        "fileSize": number
+      }
+    ],
+    "page": number,
+    "limit": number,
+    "total": number
+  }
+  ```
 
-GET /api/videos/:id
-Response: 200 OK
-jsonCopy{
-  "id": "string",
-  "title": "string",
-  "description": "string",
-  "uploadDate": "string",
-  "fileSize": number
-}
-
-
-List all videos
-
-GET /api/videos
-Query Parameters:
-
-page: number (optional, default: 1)
-limit: number (optional, default: 10)
-
-
-Response: 200 OK
-jsonCopy{
-  "data": [
-    {
-      "id": "string",
-      "title": "string",
-      "description": "string",
-      "uploadDate": "string",
-      "fileSize": number
-    }
-  ],
-  "page": number,
-  "limit": number,
-  "total": number
-}
-
-
-Delete a video
-
-DELETE /api/videos/:id
-Response: 200 OK
-jsonCopy{
-  "message": "Video deleted successfully"
-}
-
-
-Search videos
-
-GET /api/videos/search
-Query Parameters:
-
-query: string (required)
-page: number (optional, default: 1)
-limit: number (optional, default: 10)
-
-
-Response: 200 OK
-jsonCopy{
-  "data": [
-    {
-      "id": "string",
-      "title": "string",
-      "description": "string",
-      "uploadDate": "string",
-      "fileSize": number
-    }
-  ],
-  "page": number,
-  "limit": number,
-  "total": number
-}
-
-
-Testing
+##Testing
 Copynpm test
 Deployment
 
