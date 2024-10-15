@@ -80,83 +80,91 @@ Server runs at `http://localhost:8040`.
 - **Response**: 201 Created
   ```json
   {
-    "id": "string",
+    "id": "6bdf95f8-7d37-4c7f-b2b2-87f71396ebdb",
     "message": "Video uploaded successfully"
   }
-  Get video details
-  
-  GET /api/videos/:id
-  Response: 200 OK
-  jsonCopy{
-    "id": "string",
-    "title": "string",
-    "description": "string",
-    "uploadDate": "string",
-    "fileSize": number
+
+### List all videos
+- **GET** `/api/videos`
+- **Body**: raw/json
+  - `limit`: number (optional)
+  - `page`: number (optional)
+- **Response**: 200 fetched
+  ```json
+  {
+      "page": 1,
+      "limit": 10,
+      "total": 2,
+      "data": [
+          {
+              "id": "6bdf95f8-7d37-4c7f-b2b2-87f71396ebdb",
+              "title": "myfile5",
+              "description": "my video",
+              "uploadDate": "2024-10-15T16:22:14.018Z",
+              "fileSize": 96480114
+          },
+          {
+              "id": "997cce11-ce32-4316-b618-edb1faf2f365",
+              "title": "myfile5",
+              "description": "my video",
+              "uploadDate": "2024-10-15T16:22:35.963Z",
+              "fileSize": 96480114
+          }
+      ]
+
+### Search videos
+- **GET** `/api/videos/search`
+- **Body**: raw/json
+  - `query `: string (required
+  - `limit`: number (optional)
+  - `page`: number (optional)
+- **Response**: 200 fetched
+  ```json
+  {
+      "page": 1,
+      "limit": 10,
+      "total": 2,
+      "data": [
+          {
+              "id": "6bdf95f8-7d37-4c7f-b2b2-87f71396ebdb",
+              "title": "myfile5",
+              "description": "my video",
+              "uploadDate": "2024-10-15T16:22:14.018Z",
+              "fileSize": 96480114
+          },
+          {
+              "id": "997cce11-ce32-4316-b618-edb1faf2f365",
+              "title": "myfile5",
+              "description": "my video",
+              "uploadDate": "2024-10-15T16:22:35.963Z",
+              "fileSize": 96480114
+          }
+      ]
+
+### Get Video Details By ID
+- **GET** `/api/videos/6bdf95f8-7d37-4c7f-b2b2-87f71396ebdb`
+- **Body**: raw/json
+  - `query `: string (required
+  - `limit`: number (optional)
+  - `page`: number (optional)
+- **Response**: 200 fetched
+  ```json
+  {
+      "id": "6bdf95f8-7d37-4c7f-b2b2-87f71396ebdb",
+      "title": "myfile5",
+      "description": "my video",
+      "uploadDate": "2024-10-15T16:22:14.018Z",
+      "fileSize": 96480114
   }
-  
-  
-  List all videos
-  
-  GET /api/videos
-  Query Parameters:
-  
-  page: number (optional, default: 1)
-  limit: number (optional, default: 10)
-  
-  
-  Response: 200 OK
-  jsonCopy{
-    "data": [
-      {
-        "id": "string",
-        "title": "string",
-        "description": "string",
-        "uploadDate": "string",
-        "fileSize": number
-      }
-    ],
-    "page": number,
-    "limit": number,
-    "total": number
-  }
-  
-  
-  Delete a video
-  
-  DELETE /api/videos/:id
-  Response: 200 OK
-  jsonCopy{
+
+### Delete Video
+- **DELTE** `/api/videos/6bdf95f8-7d37-4c7f-b2b2-87f71396ebdb`
+- **Body**: None
+- **Response**: 200 OK
+  ```json
+  {
     "message": "Video deleted successfully"
   }
-  
-  
-  Search videos
-  
-  GET /api/videos/search
-  Query Parameters:
-  
-  query: string (required)
-  page: number (optional, default: 1)
-  limit: number (optional, default: 10)
-  
-  
-  Response: 200 OK
-  jsonCopy{
-    "data": [
-      {
-        "id": "string",
-        "title": "string",
-        "description": "string",
-        "uploadDate": "string",
-        "fileSize": number
-      }
-    ],
-    "page": number,
-    "limit": number,
-    "total": number
-  }
-  ```
 
 
 License
