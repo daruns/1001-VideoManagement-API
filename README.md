@@ -158,23 +158,6 @@ Server runs at `http://localhost:8040`.
   }
   ```
 
-Testing
-Copynpm test
-Deployment
-
-Build:
-Copynpm run build
-
-Deploy dist directory to your hosting platform.
-Set environment variables on the hosting platform.
-
-Contributing
-
-Fork the repository
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
 
 License
 MIT License
