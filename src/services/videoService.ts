@@ -8,7 +8,8 @@ export class VideoService {
   createVideo(createVideoDto: CreateVideoDto, fileSize: number): Video {
     const newVideo: Video = {
       id: uuidv4(),
-      ...createVideoDto,
+      title: createVideoDto.title,
+      description: createVideoDto.description || '',
       uploadDate: new Date(),
       fileSize,
     };
